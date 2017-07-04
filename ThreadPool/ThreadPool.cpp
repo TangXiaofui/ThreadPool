@@ -36,6 +36,7 @@ ThreadPool::~ThreadPool()
 		std::unique_lock<std::mutex> lock(this->queue_mutex);
 		stop = true;
 	}
+	cond.notify_all();
 	for (auto &worker : wokers)
 	{
 		worker.join();
